@@ -7,7 +7,7 @@ set -o pipefail
 function enforce_root {
     if [ "$(whoami)" != "root" ];
     then
-        echo "Please re-run this script as root (eg: 'sudo bash deploy')";
+        echo "Please re-run this script as root (eg: 'sudo bash <script>')";
         exit;
     fi
 }
