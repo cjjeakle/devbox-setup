@@ -30,12 +30,6 @@ then
 fi
 
 read -p "Provide the email you use for github (to tag your generated public key): " GITHUB_KEY_EMAIL
-read -p "Confirm your email: " GITHUB_KEY_EMAIL_CONFIRMATION
-if [ "$GITHUB_KEY_EMAIL" != "$GITHUB_KEY_EMAIL_CONFIRMATION" ]
-then
-    echo "Emails did not macth."
-    exit;
-fi
 
 read -s -p "Provide a password to protect your github key: " GITHUB_KEY_PASS
 echo ""
@@ -73,7 +67,13 @@ chmod 0644 ~/.ssh/authorized_keys
 # Explicitly disable SSH password login using global regex substitution
 sed -i "s|#*PasswordAuthentication yes|PasswordAuthentication no|g" /etc/ssh/sshd_config
 sed -i "s|#*UsePAM yes|UsePAM no|g" /etc/ssh/sshd_config
-sed -i "AllowUsers chris"
+if grep -q "AllowUsers" /etc/ssh/sshd_config;
+then
+    sed -i "s|AllowUsers.*|AllowUsers ${SSH_USER}|g" /etc/ssh/sshd_config
+else
+    echo "AllowUsers ${SSH_USER}" >> /etc/ssh/sshd_config
+fi
+
 # Rate limit connection attempts from a given IP address
 ufw limit ssh
 # Restart the SSH service so changes take effect
