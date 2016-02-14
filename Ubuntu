@@ -73,7 +73,6 @@ then
 else
     echo "AllowUsers ${SSH_USER}" >> /etc/ssh/sshd_config
 fi
-
 # Rate limit connection attempts from a given IP address
 ufw limit ssh
 # Restart the SSH service so changes take effect
@@ -89,6 +88,7 @@ apt-get -y install curl git clang g++ nodejs postgresql screen
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable
 # Installing github pages dependencies
+source /etc/profile.d/rvm.sh
 rvm install 2.1.0
 rvm use 2.1.0
 rvm rubygems latest
