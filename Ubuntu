@@ -62,7 +62,7 @@ fi
 echo "Configuring SSH (overwriting any existing authorized_keys)"
 # Installing openssh and backing up the default config,
 # per the suggestions here: "https://help.ubuntu.com/community/SSH/OpenSSH/Configuring"
-apt-get install openssh-server
+apt-get -y install openssh-server
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
 chmod a-w /etc/ssh/sshd_config.factory-defaults
 # Set the provided ssh public key as a login credential (Overwriting existing settings)
@@ -84,7 +84,7 @@ apt-get update
 # Add LTS nodejs 4.x to apt
 curl -sL https://deb.nodesource.com/setup_4.x | bash -
 # Install common dev tools
-apt-get --yes install curl git clang g++ nodejs postgresql screen
+apt-get -y install curl git clang g++ nodejs postgresql screen
 # Install RVM
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable
