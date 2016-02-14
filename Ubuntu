@@ -29,6 +29,7 @@ then
 	exit;
 fi
 
+read -p "Provide your full name (to configure git): " FULL_NAME
 read -p "Provide the email you use for github (to tag your generated public key): " GITHUB_KEY_EMAIL
 
 read -s -p "Provide a password to protect your github key: " GITHUB_KEY_PASS
@@ -93,6 +94,10 @@ rvm install 2.1.0
 rvm use 2.1.0
 rvm rubygems latest
 gem install bundler
+
+echo "Configuring git"
+git config --global user.name $FULL_NAME
+git config --global user.email $GITHUB_KEY_EMAIL
 
 echo "Generating SSH key to use with github"
 ssh-keygen -t rsa -b 4096 -C $GITHUB_KEY_EMAIL -N $GITHUB_KEY_PASS -f ~/.ssh/id_rsa
