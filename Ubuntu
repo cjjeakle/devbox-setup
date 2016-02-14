@@ -109,6 +109,7 @@ ssh-add ~/.ssh/id_rsa
  
 echo "Making a projects directory"
 mkdir -p ~/projects
+chown $SUDO_USER ~/projects
 
 echo "Thats all!"
 echo "Add the following SSH key to github:"
