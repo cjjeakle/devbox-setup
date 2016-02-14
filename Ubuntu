@@ -62,8 +62,10 @@ cp /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
 chmod a-w /etc/ssh/sshd_config.factory-defaults
 # Set the provided ssh public key as a login credential (Overwriting existing settings)
 mkdir -p ~/.ssh
+chown $SUDO_USER ~/.ssh
 chmod 0700 ~/.ssh
 echo $SSH_PUBLIC_KEY > ~/.ssh/authorized_keys
+chown $SUDO_USER ~/.ssh
 chmod 0644 ~/.ssh/authorized_keys
 # Explicitly disable SSH password login using global regex substitution
 sed -i "s|#*PasswordAuthentication yes|PasswordAuthentication no|g" /etc/ssh/sshd_config
