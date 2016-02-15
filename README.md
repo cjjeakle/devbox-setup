@@ -4,6 +4,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 ## Set up an Ubuntu box:
 
 ### Install frequently used tools
+`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools)"`
 * Installs:
     * `curl`
     * `git`
@@ -18,9 +19,8 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 * Configurations:
     * Creates a directory for projects: `~/projects`
 
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools)"`
-
 ### Git and GitHub setup
+`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
 * Installs:
     * `git`
 * Configurations:
@@ -28,9 +28,8 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Generates an ssh key and attempts to save it to `~/.ssh/id_rsa`
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation
 
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
-
 ### SSH setup
+`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
 * Installs:
     * `openssh-server`
 * Configurations:
@@ -42,8 +41,3 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 * Useful notes:
     * An SSH public key will be requested
         *[This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
-
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
-
-
-
