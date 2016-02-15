@@ -68,3 +68,4 @@ then
     echo "# Added by ubuntu-tools script" >> ~/.bashrc
     echo "alias serv=\"python -m SimpleHTTPServer 4000\"" >> ~/.bashrc
 fi
+source ~/.bashrc
