@@ -34,10 +34,10 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * `openssh-server`
 * Configurations:
     * Creates `/etc/ssh/sshd_config.factory-defaults` to back up `/etc/ssh/sshd_config`, if `/etc/ssh/sshd_config.factory-defaults` does not already exist
-    * Overwrites `~/.ssh/authorized_keys` to only contain the provided public key
+    * Overwrites `~/.ssh/authorized_keys` to contain only the provided public key
     * Disables ssh password authentication
     * Sets the provided user as the only valid user for ssh login
     * Enables rate limiting on login attempts
 * Useful notes:
-    * An SSH public key will be requested
-        *[This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
+    * An SSH public key will be requested.<br/>
+[This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
