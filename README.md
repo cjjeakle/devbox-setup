@@ -15,7 +15,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * `screen`
     * `rvm`
     * `ruby` (2.1.0)
-        * `bundler` (ruby gem)
+        * `bundler` (a ruby gem)
 * Configurations:
     * Creates a directory for projects: `~/projects`
 
