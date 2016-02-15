@@ -17,6 +17,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
         * `bundler` (ruby gem)
 * Configurations:
     * Creates a directory for projects: `~/projects`
+
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools)"`
 
 ### Git and GitHub setup
@@ -26,6 +27,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Sets global user.name and user.email for commits
     * Generates an ssh key and attempts to save it to `~/.ssh/id_rsa`
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation
+
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
 
 ### SSH setup
@@ -40,6 +42,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 * Useful notes:
     * An SSH public key will be requested
         *[This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
+
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
 
 
