@@ -18,6 +18,9 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
         * `bundler` (a ruby gem)
 * Configurations:
     * Creates a directory for projects: `~/projects`
+    * Adds commands to `~/.bashrc`<br/>
+    1. `proj` changes the current directory to `~/projects`
+    2. `serv` starts a simple python HTTP server in the current directory under port 4000
 
 ### Git and GitHub setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
@@ -40,4 +43,4 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Enables rate limiting on login attempts
 * Useful notes:
     * An SSH public key will be requested.<br/>
-[This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
+    [This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).

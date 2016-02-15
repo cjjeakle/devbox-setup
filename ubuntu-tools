@@ -53,3 +53,15 @@ gem install bundler
 echo "Making a projects directory"
 mkdir -p ~/projects
 chown $SUDO_USER ~/projects
+
+echo "Adding convenience shortcuts"
+if !(grep -q "alias proj" ~/.bashrc);
+then
+    echo "# Added by ubuntu-tools script" >> ~/.bashrc
+    echo "alias proj=\"cd ~/projects/\"" >> ~/.bashrc
+fi
+if !(grep -q "alias serv" ~/.bashrc);
+then
+    echo "# Added by ubuntu-tools script" >> ~/.bashrc
+    echo "alias serv=\"python -m SimpleHTTPServer 4000\"" >> ~/.bashrc
+fi
