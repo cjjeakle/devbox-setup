@@ -34,16 +34,19 @@ confirm_start;
 # The config script
 ##########
 
-echo "Installing apt packages and RVM"
+echo "Installing apt packages"
 apt-get update
-# Add LTS nodejs 4.x to apt
+# Common dev tools
+apt-get -y install curl git clang g++ postgresql screen
+# Install LTS nodejs 4.x
 curl -sL https://deb.nodesource.com/setup_4.x | bash -
-# Install common dev tools
-apt-get -y install curl git clang g++ nodejs postgresql screen
+apt-get -y install nodejs
+
+echo "Installing RVM, Ruby, and Bundler"
 # Install RVM
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable
-# Installing github pages dependencies
+# GitHub pages dependencies
 source /etc/profile.d/rvm.sh
 rvm install 2.1.0
 rvm use 2.1.0
