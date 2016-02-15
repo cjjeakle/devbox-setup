@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#Fail this script should any operation fail
+set -e
+set -o pipefail
+
+# Utility functions
+##########
+
+function enforce_root {
+    if [ "$(whoami)" != "root" ];
+    then
+        echo "Please re-run this script as root (eg: 'sudo bash <script>')";
+        exit;
+    fi
+}
+
+function enforce_match {
+    if [ "$1" != "$2" ]
+    then
+        echo "Passwords did not macth."
+        exit;
+    fi
+}
+
+function confirm_start {
+    read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
+    if [ "$AUTHORIZATION" != "YES" ]
+    then
+        exit;
+    fi
+}
+
+# Checks, user input, and input validation
+##########
+
+enforce_root;
+
+read -p "Provide your full name (to configure git): " FULL_NAME
+read -p "Provide the email you use for github (to tag your generated public key): " GITHUB_KEY_EMAIL
+
+read -s -p "Provide a password to protect your github key: " GITHUB_KEY_PASS
+echo ""
+read -s -p "Confirm your password: " GITHUB_KEY_PASS_CONFIRMATION
+echo ""
+enforce_match $GITHUB_KEY_PASS $GITHUB_KEY_PASS_CONFIRMATION
+
+echo "This script will install git, configure your name and email for commits, and create an RSA key (in ~/.ssh/id_rsa) to use with GitHub"
+confirm_start;
+
+# The config script
+##########
+
+echo "Ensuring git is installed"
+apt-get update
+apt-get -y install git
+
+echo "Configuring git"
+git config --global user.name $FULL_NAME
+git config --global user.email $GITHUB_KEY_EMAIL
+
+echo "Generating SSH key to use with github"
+ssh-keygen -t rsa -b 4096 -C $GITHUB_KEY_EMAIL -N $GITHUB_KEY_PASS -f ~/.ssh/id_rsa
+chown $SUDO_USER ~/.ssh/id_rsa
+
+echo "Thats all!"
+echo "Add the following SSH key to github:"
+cat ~/.ssh/id_rsa.pub

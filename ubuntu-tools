@@ -1,0 +1,55 @@
+#!/bin/bash
+
+#Fail this script should any operation fail
+set -e
+set -o pipefail
+
+# Utility functions
+##########
+
+function enforce_root {
+    if [ "$(whoami)" != "root" ];
+    then
+        echo "Please re-run this script as root (eg: 'sudo bash <script>')";
+        exit;
+    fi
+}
+
+function confirm_start {
+    read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
+    if [ "$AUTHORIZATION" != "YES" ]
+    then
+        exit;
+    fi
+}
+
+# Checks, user input, and input validation
+##########
+
+enforce_root;
+
+echo "This script will install commonly used tools."
+confirm_start;
+
+# The config script
+##########
+
+echo "Installing apt packages and RVM"
+apt-get update
+# Add LTS nodejs 4.x to apt
+curl -sL https://deb.nodesource.com/setup_4.x | bash -
+# Install common dev tools
+apt-get -y install curl git clang g++ nodejs postgresql screen
+# Install RVM
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable
+# Installing github pages dependencies
+source /etc/profile.d/rvm.sh
+rvm install 2.1.0
+rvm use 2.1.0
+rvm rubygems latest
+gem install bundler
+
+echo "Making a projects directory"
+mkdir -p ~/projects
+chown $SUDO_USER ~/projects
