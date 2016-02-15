@@ -66,6 +66,9 @@ chmod 0700 ~/.ssh
 ssh-keygen -t rsa -b 4096 -C $GITHUB_KEY_EMAIL -N $GITHUB_KEY_PASS -f ~/.ssh/id_rsa
 chown $SUDO_USER ~/.ssh/id_rsa
 
-echo "Thats all!"
-echo "Add the following SSH key to github:"
+echo "
+
+**********
+Thats all!"
+echo "Add the following SSH public key to github:"
 cat ~/.ssh/id_rsa.pub
