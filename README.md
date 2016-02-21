@@ -54,7 +54,7 @@ An example run:
 
 ```
 sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)" \
--- -k "Your SSH Public Key Here" -u "login_user"
+-- -u "login_user" -k "Your SSH Public Key Here"
 ```
 * Script arguments:
     * All arguments are mandatory.
