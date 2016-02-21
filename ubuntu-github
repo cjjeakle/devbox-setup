@@ -24,22 +24,6 @@ function enforce_root {
     fi
 }
 
-function enforce_match {
-    if [ "$1" != "$2" ];
-    then
-        echo "Passwords did not macth."
-        exit;
-    fi
-}
-
-function confirm_start {
-    read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
-    if [ "$AUTHORIZATION" != "YES" ];
-    then
-        exit;
-    fi
-}
-
 # Checks, user input, and input validation
 ##########
 
@@ -56,32 +40,9 @@ do
     esac
 done
 
-if [ "${FULL_NAME}" = "" ];
-then
-    read -p "Provide your full name (to configure git): " FULL_NAME
-fi
-if [ "${GITHUB_KEY_EMAIL}" = "" ];
-then
-    read -p "Provide the email you use for github (to tag your generated public key): " GITHUB_KEY_EMAIL
-fi
-
-if $READ_PASSWORD_FROM_STDIN;
-then
-    read GITHUB_KEY_PASS
-else
-    read -s -p "Provide a password to protect your github key: " GITHUB_KEY_PASS
-    echo ""
-    read -s -p "Confirm your password: " GITHUB_KEY_PASS_CONFIRMATION
-    echo ""
-    enforce_match $GITHUB_KEY_PASS $GITHUB_KEY_PASS_CONFIRMATION
-fi
+read GITHUB_KEY_PASS
 
 echo "This script will install git, configure your name and email for commits, and create a password protected RSA key (in ~/.ssh/id_rsa) to use with GitHub"
-echo "Provided name: ${FULL_NAME}, provided email: ${GITHUB_KEY_EMAIL}, provided SSH key password: <hidden>."
-if $INTERACTIVE_MODE;
-then
-    confirm_start;
-fi
 
 # The config script
 ##########

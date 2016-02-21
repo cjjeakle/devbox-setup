@@ -9,7 +9,6 @@ set -o pipefail
 
 declare SSH_PUBLIC_KEY="";
 declare SSH_USER="";
-declare INTERACTIVE_MODE=true;
 
 # Utility functions
 ##########
@@ -30,14 +29,6 @@ function user_exists {
     return 1 #false
 }
 
-function confirm_start {
-    read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
-    if [ "$AUTHORIZATION" != "YES" ];
-    then
-        exit;
-    fi
-}
-
 # Checks, user input, and input validation
 ##########
 
@@ -48,14 +39,14 @@ do
     case $option in
         k ) SSH_PUBLIC_KEY=${OPTARG}; ;;
         u ) SSH_USER=${OPTARG}; ;;
-        z ) INTERACTIVE_MODE=false; ;;
         h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
     esac
 done
 
 if [ "${SSH_USER}" = "" ];
 then
-    read -p "Provide the user you would like to enable SSH for: " SSH_USER
+    echo "Please provide a user for SSH login (the `-u \"<string>\"` argument)."
+    exit;
 fi
 if ! user_exists $SSH_USER
 then
@@ -65,15 +56,11 @@ fi
 
 if [ "${SSH_PUBLIC_KEY}" = "" ];
 then
-    read -p "Provide an SSH public key to authorize logins against: " SSH_PUBLIC_KEY
+    echo "Please provide a key for SSH login (the `-k \"<string>\"` argument)."
 fi
 
 echo "This script will install and configure openSSH"
 echo "Only key-based logins will be permitted, using only the provided key, and only for user: ${SSH_USER}"
-if $INTERACTIVE_MODE;
-then
-    confirm_start;
-fi
 
 # The config script
 ##########

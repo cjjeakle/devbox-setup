@@ -4,11 +4,6 @@
 set -e
 set -o pipefail
 
-# Input variables
-##########
-
-declare INTERACTIVE_MODE=true;
-
 # Utility functions
 ##########
 
@@ -20,32 +15,12 @@ function enforce_root {
     fi
 }
 
-function confirm_start {
-    read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
-    if [ "$AUTHORIZATION" != "YES" ];
-    then
-        exit;
-    fi
-}
-
 # Checks, user input, and input validation
 ##########
 
 enforce_root;
 
-while getopts 'zh' option
-do
-    case $option in
-        z ) INTERACTIVE_MODE=false; ;;
-        h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
-    esac
-done
-
 echo "This script will install commonly used tools."
-if $INTERACTIVE_MODE;
-then
-    confirm_start;
-fi
 
 # The config script
 ##########
