@@ -6,6 +6,7 @@ set -o pipefail
 
 # Input variables
 ##########
+
 declare SSH_PUBLIC_KEY="";
 declare SSH_USER="";
 declare INTERACTIVE_MODE=true;

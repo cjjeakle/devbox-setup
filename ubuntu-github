@@ -6,6 +6,7 @@ set -o pipefail
 
 # Input variables
 ##########
+
 declare GITHUB_KEY_EMAIL="";
 declare FULL_NAME="";
 declare READ_PASSWORD_FROM_STDIN=false;

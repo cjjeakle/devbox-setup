@@ -6,6 +6,7 @@ set -o pipefail
 
 # Input variables
 ##########
+
 declare INTERACTIVE_MODE=true;
 
 # Utility functions
