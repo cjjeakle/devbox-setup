@@ -4,6 +4,10 @@
 set -e
 set -o pipefail
 
+# Input variables
+##########
+declare INTERACTIVE_MODE=true;
+
 # Utility functions
 ##########
 
@@ -25,7 +29,7 @@ function user_exists {
 
 function confirm_start {
     read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
-    if [ "$AUTHORIZATION" != "YES" ]
+    if [ "$AUTHORIZATION" != "YES" ];
     then
         exit;
     fi
@@ -35,6 +39,14 @@ function confirm_start {
 ##########
 
 enforce_root;
+
+while getopts 'zh' option
+do
+    case $option in
+        z ) INTERACTIVE_MODE=false; ;;
+        h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
+    esac
+done
 
 read -p "Provide the user you would like to enable SSH for: " SSH_USER
 if !(user_exists $SSH_USER)
@@ -47,7 +59,10 @@ read -p "Provide an SSH public key to authorize logins against: " SSH_PUBLIC_KEY
 
 echo "This script will install and configure openSSH"
 echo "Only key-based logins will be permitted, using only the provided key, and only for user: ${SSH_USER}"
-confirm_start;
+if $INTERACTIVE_MODE;
+then
+    confirm_start;
+fi
 
 # The config script
 ##########
@@ -59,11 +74,9 @@ apt-get -y install openssh-server
 cp --no-clobber /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
 chmod a-w /etc/ssh/sshd_config.factory-defaults
 # Set the provided ssh public key as a login credential (Overwriting existing settings)
-mkdir -p ~/.ssh
-chown $SUDO_USER ~/.ssh
+su - $SUDO_USER -c "mkdir -p ~/.ssh"
 chmod 0700 ~/.ssh
-echo $SSH_PUBLIC_KEY > ~/.ssh/authorized_keys
-chown $SUDO_USER ~/.ssh/authorized_keys
+su - $SUDO_USER -c "echo $SSH_PUBLIC_KEY > ~/.ssh/authorized_keys"
 chmod 0644 ~/.ssh/authorized_keys
 # Explicitly disable SSH password login using global regex substitution
 sed -i "s|#*PasswordAuthentication yes|PasswordAuthentication no|g" /etc/ssh/sshd_config

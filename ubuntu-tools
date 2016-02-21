@@ -4,6 +4,10 @@
 set -e
 set -o pipefail
 
+# Input variables
+##########
+declare INTERACTIVE_MODE=true;
+
 # Utility functions
 ##########
 
@@ -17,7 +21,7 @@ function enforce_root {
 
 function confirm_start {
     read -p "Type 'YES' (case sensitive) to begin: " AUTHORIZATION
-    if [ "$AUTHORIZATION" != "YES" ]
+    if [ "$AUTHORIZATION" != "YES" ];
     then
         exit;
     fi
@@ -28,8 +32,19 @@ function confirm_start {
 
 enforce_root;
 
+while getopts 'zh' option
+do
+    case $option in
+        z ) INTERACTIVE_MODE=false; ;;
+        h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
+    esac
+done
+
 echo "This script will install commonly used tools."
-confirm_start;
+if $INTERACTIVE_MODE;
+then
+    confirm_start;
+fi
 
 # The config script
 ##########
@@ -41,7 +56,7 @@ curl -sL https://deb.nodesource.com/setup_4.x | bash -
 # Install common dev tools
 apt-get -y install curl git clang g++ nodejs postgresql screen
 # Install RVM
-gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+su - $SUDO_USER -c "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3"
 \curl -sSL https://get.rvm.io | bash -s stable
 # Installing github pages dependencies
 source /etc/profile.d/rvm.sh
@@ -51,16 +66,15 @@ rvm rubygems latest
 gem install bundler
 
 echo "Making a projects directory"
-mkdir -p ~/projects
-chown $SUDO_USER ~/projects
+su - $SUDO_USER -c "mkdir -p ~/projects"
 
 echo "Adding convenience shortcuts"
-if !(grep -q "alias proj" ~/.bashrc);
+if ! (grep -q "alias proj" ~/.bashrc);
 then
     echo "# Added by ubuntu-tools script" >> ~/.bashrc
     echo "alias proj=\"cd ~/projects/\"" >> ~/.bashrc
 fi
-if !(grep -q "alias serv" ~/.bashrc);
+if ! (grep -q "alias serv" ~/.bashrc);
 then
     echo "# Added by ubuntu-tools script" >> ~/.bashrc
     echo "alias serv=\"python -m SimpleHTTPServer 4000\"" >> ~/.bashrc
