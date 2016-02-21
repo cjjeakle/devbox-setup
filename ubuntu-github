@@ -40,17 +40,17 @@ done
 
 if [ "${GITHUB_KEY_EMAIL}" = "" ];
 then
-    echo "Please provide an email to tag your SSH key and git commits with (use the \'-e \"<string>\"\' argument)."
+    echo "Please provide an email to tag your SSH key and git commits with (use the '-e \"<string>\"' argument)."
     exit;
 fi
 
 if [ "${FULL_NAME}" = "" ];
 then
-    echo "Please provide a full name to tag your git commits with (use the \'-n \"<string>\"\' argument)."
+    echo "Please provide a full name to tag your git commits with (use the '-n \"<string>\"' argument)."
     exit;
 fi
 
-echo "If the script seems to have halted here, don\'t forget to provide a password for your SSH key via standard input."
+echo "If the script seems to have halted here, don't forget to provide a password for your SSH key via standard input."
 read GITHUB_KEY_PASS
 
 echo "This script will install git, configure your name and email for commits, and create a password protected RSA key (in ~/.ssh/id_rsa) to use with GitHub"
