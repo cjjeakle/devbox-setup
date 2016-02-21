@@ -24,6 +24,16 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 
 ### Git and GitHub setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
+
+An example run:
+
+`touch password.txt && vim password.txt`
+```
+cat password.txt | \
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" \
+-- -e "email@example.com" -n "Your Name" &&\
+rm password.txt
+```
 * Script arguments:
     * All arguments (except `-z`) are mandatory.
     * `stdin` The password you would like to protect the generated GitHub SSH key with. This password is provided via standard input.
@@ -36,18 +46,16 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Sets global user.name and user.email for commits.
     * Generates an SSH key and attempts to save it to `~/.ssh/id_rsa`.
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
-* An example run:
-
-`touch password.txt && vim password.txt`
-```
-cat password.txt | \
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" \
--- -e "email@example.com" -n "Your Name" &&\
-rm password.txt
-```
 
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
+
+An example run:
+
+```
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)" \
+-- -k "Your SSH Public Key Here" -u "login_user"
+```
 * Script arguments:
     * All arguments are mandatory.
     * `k <str>` (_K_ey) the SSH public key you would like to log in against.
@@ -63,8 +71,3 @@ rm password.txt
 * Useful notes:
     * An SSH public key will be requested.
         * [This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
-* An example run:
-```
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)" \
--- -k "Your SSH Public Key Here" -u "login_user"
-```
