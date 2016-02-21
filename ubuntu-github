@@ -62,8 +62,8 @@ chmod 0700 ~/.ssh"
 if ! $INTERACTIVE_MODE;
 then
     echo "Deleting id_rsa and id_rsa.pub if they already exist."
-    \\rm -f ~/.ssh/id_rsa
-    \\rm -f ~/.ssh/id_rsa.pub
+    rm -f ~/.ssh/id_rsa
+    rm -f ~/.ssh/id_rsa.pub
 fi
 su - $SUDO_USER -c "ssh-keygen -t rsa -b 4096 -C ${GITHUB_KEY_EMAIL} -N ${GITHUB_KEY_PASS} -f ~/.ssh/id_rsa"
 
