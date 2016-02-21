@@ -45,7 +45,7 @@ done
 
 if [ "${SSH_USER}" = "" ];
 then
-    echo "Please provide a user for SSH login (the `-u \"<string>\"` argument)."
+    echo "Please provide a user for SSH login (the \'-u \"<string>\"\' argument)."
     exit;
 fi
 if ! user_exists $SSH_USER
@@ -56,7 +56,7 @@ fi
 
 if [ "${SSH_PUBLIC_KEY}" = "" ];
 then
-    echo "Please provide a key for SSH login (the `-k \"<string>\"` argument)."
+    echo "Please provide a key for SSH login (the \'-k \"<string>\"\' argument)."
 fi
 
 echo "This script will install and configure openSSH"
