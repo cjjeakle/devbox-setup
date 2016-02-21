@@ -23,6 +23,8 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Adds commands to `~/.bashrc`:
         * `proj` changes the current directory to `~/projects`.
         * `serv` starts a simple python HTTP server in the current directory under port 4000.
+* An example run:
+    * `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools) -- -z`
 
 ### Git and GitHub setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
@@ -39,6 +41,8 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Sets global user.name and user.email for commits.
     * Generates an SSH key and attempts to save it to `~/.ssh/id_rsa`.
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
+* An example run:
+    * `cat sooper_secret_password.txt | sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github) -- -e "email@example.com" -n "Your Name" -p`
 
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
@@ -58,3 +62,5 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 * Useful notes:
     * An SSH public key will be requested.
         * [This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
+* An example run:
+    * `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh) -- -k "Your SSH Key Here" -u "login_user" -z`
