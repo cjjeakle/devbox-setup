@@ -58,4 +58,8 @@ then
     echo "# Added by ubuntu-tools script" >> ~/.bashrc
     echo "alias serv=\"python -m SimpleHTTPServer 4000\"" >> ~/.bashrc
 fi
-su - $SUDO_USER -c "source ~/.bashrc"
+echo "
+
+**********
+Thats all!"
+echo "Run `source ~/.bashrc` to start using the newly added shortcuts!"
