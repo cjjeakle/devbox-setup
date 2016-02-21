@@ -63,4 +63,4 @@ echo "
 
 **********
 Thats all!"
-echo "Run `source ~/.bashrc` to start using the newly added shortcuts!"
+echo "Run \"source ~/.bashrc\" to start using the newly added shortcuts!"
