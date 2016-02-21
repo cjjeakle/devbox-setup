@@ -6,6 +6,8 @@ set -o pipefail
 
 # Input variables
 ##########
+declare SSH_PUBLIC_KEY="";
+declare SSH_USER="";
 declare INTERACTIVE_MODE=true;
 
 # Utility functions
@@ -40,22 +42,30 @@ function confirm_start {
 
 enforce_root;
 
-while getopts 'zh' option
+while getopts 'k:u:zh' option
 do
     case $option in
+        k ) SSH_PUBLIC_KEY=${OPTARG}; ;;
+        u ) SSH_USER=${OPTARG}; ;;
         z ) INTERACTIVE_MODE=false; ;;
         h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
     esac
 done
 
-read -p "Provide the user you would like to enable SSH for: " SSH_USER
-if !(user_exists $SSH_USER)
+if [ "${SSH_USER}" = "" ];
 then
-    echo "This user does not exist."
+    read -p "Provide the user you would like to enable SSH for: " SSH_USER
+fi
+if ! user_exists $SSH_USER
+then
+    echo "The specified user does not exist."
     exit;
 fi
 
-read -p "Provide an SSH public key to authorize logins against: " SSH_PUBLIC_KEY
+if [ "${SSH_PUBLIC_KEY}" = "" ];
+then
+    read -p "Provide an SSH public key to authorize logins against: " SSH_PUBLIC_KEY
+fi
 
 echo "This script will install and configure openSSH"
 echo "Only key-based logins will be permitted, using only the provided key, and only for user: ${SSH_USER}"

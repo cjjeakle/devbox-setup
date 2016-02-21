@@ -6,6 +6,10 @@ set -o pipefail
 
 # Input variables
 ##########
+declare GITHUB_KEY_EMAIL="";
+declare FULL_NAME="";
+declare READ_PASSWORD_FROM_STDIN=false;
+declare GITHUB_KEY_PASS;
 declare INTERACTIVE_MODE=true;
 
 # Utility functions
@@ -40,22 +44,36 @@ function confirm_start {
 
 enforce_root;
 
-while getopts 'zh' option
+while getopts 'e:n:pzh' option
 do
     case $option in
+        e ) GITHUB_KEY_EMAIL=${OPTARG}; ;;
+        n ) FULL_NAME=${OPTARG}; ;;
+        p ) READ_PASSWORD_FROM_STDIN=true; ;;
         z ) INTERACTIVE_MODE=false; ;;
         h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
     esac
 done
 
-read -p "Provide your full name (to configure git): " FULL_NAME
-read -p "Provide the email you use for github (to tag your generated public key): " GITHUB_KEY_EMAIL
+if [ "${FULL_NAME}" = "" ];
+then
+    read -p "Provide your full name (to configure git): " FULL_NAME
+fi
+if [ "${GITHUB_KEY_EMAIL}" = "" ];
+then
+    read -p "Provide the email you use for github (to tag your generated public key): " GITHUB_KEY_EMAIL
+fi
 
-read -s -p "Provide a password to protect your github key: " GITHUB_KEY_PASS
-echo ""
-read -s -p "Confirm your password: " GITHUB_KEY_PASS_CONFIRMATION
-echo ""
-enforce_match $GITHUB_KEY_PASS $GITHUB_KEY_PASS_CONFIRMATION
+if $READ_PASSWORD_FROM_STDIN;
+then
+    read GITHUB_KEY_PASS
+else
+    read -s -p "Provide a password to protect your github key: " GITHUB_KEY_PASS
+    echo ""
+    read -s -p "Confirm your password: " GITHUB_KEY_PASS_CONFIRMATION
+    echo ""
+    enforce_match $GITHUB_KEY_PASS $GITHUB_KEY_PASS_CONFIRMATION
+fi
 
 echo "This script will install git, configure your name and email for commits, and create a password protected RSA key (in ~/.ssh/id_rsa) to use with GitHub"
 if $INTERACTIVE_MODE;
@@ -76,8 +94,20 @@ git config --global user.name ${FULL_NAME}
 git config --global user.email ${GITHUB_KEY_EMAIL}"
 
 echo "Generating SSH key to use with github"
+su - $SUDO_USER -c "
+mkdir -p ~/.ssh
+chmod 0700 ~/.ssh"
+if ! $INTERACTIVE_MODE;
+then
+    echo "Deleting id_rsa and id_rsa.pub if they already exist."
+    \\rm -f ~/.ssh/id_rsa
+    \\rm -f ~/.ssh/id_rsa.pub
+fi
 su - $SUDO_USER -c "ssh-keygen -t rsa -b 4096 -C ${GITHUB_KEY_EMAIL} -N ${GITHUB_KEY_PASS} -f ~/.ssh/id_rsa"
 
-echo "Thats all!"
-echo "Add the following SSH key to github:"
+echo "
+
+**********
+Thats all!"
+echo "Add the following SSH public key to github:"
 cat ~/.ssh/id_rsa.pub
