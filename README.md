@@ -39,7 +39,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Generates an SSH key and attempts to save it to `~/.ssh/id_rsa`.
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
 * An example run:
-    * `cat sooper_secret_password.txt | sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" -- -e "email@example.com" -n "Your Name" -p`
+    * `cat sooper_secret_password.txt | sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" -- -e "email@example.com" -n "Your Name"`
 
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
