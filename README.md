@@ -37,10 +37,14 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Generates an SSH key and attempts to save it to `~/.ssh/id_rsa`.
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
 * An example run:
-    * ```touch password.txt\
-    vim password.txt\
-    cat sooper_secret_password.txt | sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" -- -e "email@example.com" -n "Your Name"\
-    rm password.txt```
+
+`touch password.txt && vim password.txt`
+```
+cat password.txt | \
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" \
+-- -e "email@example.com" -n "Your Name" &&\
+rm password.txt
+```
 
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
@@ -60,4 +64,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * An SSH public key will be requested.
         * [This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
 * An example run:
-    * `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)" -- -k "Your SSH Public Key Here" -u "login_user"`
+```
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)" \
+-- -k "Your SSH Public Key Here" -u "login_user"
+```
