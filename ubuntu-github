@@ -34,7 +34,6 @@ do
     case $option in
         e ) GITHUB_KEY_EMAIL=${OPTARG}; ;;
         n ) FULL_NAME=${OPTARG}; ;;
-        p ) READ_PASSWORD_FROM_STDIN=true; ;;
         z ) INTERACTIVE_MODE=false; ;;
         h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
     esac

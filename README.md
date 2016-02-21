@@ -27,10 +27,10 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 ### Git and GitHub setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
 * Script arguments:
-    * All arguments (except `-z`) are mandatory
-    * `e <str>` (_E_mail) The email address you would like to use on your git commits, and would like to annotate your GitHub SSH key with
-    * `n <str>` (_N_ame) The full name you would like to use on your git commits
-    * `p` (_P_assword) Reads a value from stdin (pipe or redirected) you would like to use as a password for your GitHub SSH key
+    * All arguments (except `-z`) are mandatory.
+    * `stdin` The password you would like to protect the generated GitHub SSH key with. This password is provided via standard input.
+    * `e <str>` (_E_mail) The email address you would like to use on your git commits, and would like to annotate your GitHub SSH key with.
+    * `n <str>` (_N_ame) The full name you would like to use on your git commits.
     * `z` (_Z_oom) Deletes ~/.ssh/id_rsa and ~/.ssh/id_rsa.pub, if they exist, so ssh-keygen will not interrupt for write confirmation.
 * Software installed:
     * `git`
@@ -44,9 +44,9 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
 * Script arguments:
-    * All arguments are mandatory
-    * `k <str>` (_K_ey) the SSH public key you would like to log in with
-    * `u <str>` (_U_ser) the user you would like to use with SSH login
+    * All arguments are mandatory.
+    * `k <str>` (_K_ey) the SSH public key you would like to log in with.
+    * `u <str>` (_U_ser) the user you would like to use with SSH login.
 * Software installed:
     * `openssh-server`
 * Configurations:
