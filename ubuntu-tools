@@ -37,12 +37,11 @@ apt-get -y install grep sed gnupg curl nano vim git clang g++ postgresql screen
 
 echo "Installing RVM, Ruby, and Bundler."
 echo "#####"
-# Install RVM
+# Install RVM, ruby, and rubygems (as a part of the ruby install)
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 \curl -sSL https://get.rvm.io | bash -s stable --ruby
-# GitHub pages dependencies
-source /etc/profile.d/rvm.sh
-rvm rubygems latest
+# Other GitHub pages dependencies
+source /usr/local/rvm/scripts/rvm
 gem install bundler
 
 echo "Making a projects directory."
@@ -63,5 +62,6 @@ then
 fi
 
 echo "Done!"
-echo "Run 'source ~/.bashrc' to start using the newly added shortcuts!"
+echo "To use RVM, run 'source /usr/local/rvm/scripts/rvm'."
+echo "To use the newly added shortcuts, run 'source ~/.bashrc'"
 echo "#####"
