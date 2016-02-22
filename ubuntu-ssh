@@ -70,7 +70,7 @@ echo "#####"
 # The config script
 ##########
 
-echo "Installing SSH and ufw (firewall)."
+echo "Installing openssh and ufw (firewall)."
 echo "#####"
 # Installing openssh and backing up the default config,
 # per the suggestions here: "https://help.ubuntu.com/community/SSH/OpenSSH/Configuring"
