@@ -5,6 +5,15 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 
 ### Install frequently used tools
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools --no-cache)"`
+
+An example run:
+
+```
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools --no-cache)" && \
+source /usr/local/rvm/scripts/rvm && \
+source ~/.bashrc
+```
+
 * Software installed:
     * `gpg`
     * `curl`
@@ -31,13 +40,15 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 
 An example run:
 
-`touch password.txt && vim password.txt`
 ```
+touch password.txt && vim password.txt
+
 cat password.txt | \
 sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)" \
--- -e "email@example.com" -n "Your Name" &&\
+-- -e "email@example.com" -n "Your Name" && \
 rm password.txt
 ```
+
 * Script arguments:
     * All arguments (except `-z`) are mandatory.
     * `stdin` The password you would like to protect the generated GitHub SSH key with. This password is provided via standard input.
@@ -62,6 +73,7 @@ An example run:
 sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)" \
 -- -u "login_user" -k "Your SSH Public Key Here"
 ```
+
 * Script arguments:
     * All arguments are mandatory.
     * `k <str>` (_K_ey) the SSH public key you would like to log in against.
