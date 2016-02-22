@@ -16,7 +16,8 @@ declare SSH_USER="";
 function enforce_root {
     if [ "$(whoami)" != "root" ];
     then
-        echo "Please re-run this script as root (eg: 'sudo bash <script>')";
+        echo "Please re-run this script as root (eg: 'sudo bash <script>')."
+        echo "#####"
         exit;
     fi
 }
@@ -39,43 +40,54 @@ do
     case $option in
         k ) SSH_PUBLIC_KEY=${OPTARG}; ;;
         u ) SSH_USER=${OPTARG}; ;;
-        h ) echo "Help (-h): See readme.md for script arguments and other info."; exit; ;;
+        h ) echo "Help (-h): See readme.md for script arguments and other info."; echo "#####"; exit; ;;
     esac
 done
 
 if [ "${SSH_USER}" = "" ];
 then
     echo "Please provide a user for SSH login (the '-u \"<string>\"' argument)."
+    echo "#####"
     exit;
 fi
 if ! user_exists $SSH_USER
 then
     echo "The specified user does not exist."
+    echo "#####"
     exit;
 fi
 
 if [ "${SSH_PUBLIC_KEY}" = "" ];
 then
     echo "Please provide a key for SSH login (the '-k \"<string>\"' argument)."
+    echo "#####"
 fi
 
-echo "This script will install and configure openSSH"
-echo "Only key-based logins will be permitted, using only the provided key, and only for user: ${SSH_USER}"
+echo "This script will install and configure openSSH."
+echo "Only key-based logins will be permitted, using only the provided key, and only for user: ${SSH_USER}."
+echo "#####"
 
 # The config script
 ##########
 
-echo "Configuring SSH (overwriting any existing authorized_keys)"
+echo "Installing SSH and ufw (firewall)."
+echo "#####"
 # Installing openssh and backing up the default config,
 # per the suggestions here: "https://help.ubuntu.com/community/SSH/OpenSSH/Configuring"
-apt-get -y install openssh-server
+apt-get -y install openssh-server ufw
 cp --no-clobber /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
 chmod a-w /etc/ssh/sshd_config.factory-defaults
+
+echo "Configuring SSH (overwriting any existing authorized_keys)."
+echo "#####"
 # Set the provided ssh public key as a login credential (Overwriting existing settings)
 su - $SUDO_USER -c "mkdir -p ~/.ssh"
 chmod 0700 ~/.ssh
-su - $SUDO_USER -c "echo $SSH_PUBLIC_KEY > ~/.ssh/authorized_keys"
+su - $SUDO_USER -c "echo $SSH_PUBLIC_KEY > ~/.ssh/authorized_keys."
 chmod 0644 ~/.ssh/authorized_keys
+
+echo "Configuring SSH (disabling password auth)."
+echo "#####"
 # Explicitly disable SSH password login using global regex substitution
 sed -i "s|#*PasswordAuthentication yes|PasswordAuthentication no|g" /etc/ssh/sshd_config
 sed -i "s|#*UsePAM yes|UsePAM no|g" /etc/ssh/sshd_config
@@ -85,7 +97,14 @@ then
 else
     echo "AllowUsers ${SSH_USER}" >> /etc/ssh/sshd_config
 fi
+
+echo "Configuring SSH (enabling rate limiting)."
+echo "#####"
 # Rate limit connection attempts from a given IP address
 ufw limit ssh
+
 # Restart the SSH service so changes take effect
 service ssh restart
+
+echo "Done!"
+echo "#####"

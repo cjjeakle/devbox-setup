@@ -6,6 +6,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 ### Install frequently used tools
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools)"`
 * Software installed:
+    * `gpg`
     * `curl`
     * `git`
     * `clang`
@@ -14,7 +15,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * `postgresql`
     * `screen`
     * `rvm`
-    * `ruby` (2.1.0)
+    * `ruby`
         * `bundler` (a ruby gem)
 * Configurations:
     * Creates a directory for projects: `~/projects`.
@@ -62,6 +63,7 @@ sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setu
     * `u <str>` (_U_ser) the user you would like to use with SSH login.
 * Software installed:
     * `openssh-server`
+    * `ufw`
 * Configurations:
     * Creates `/etc/ssh/sshd_config.factory-defaults` to back up `/etc/ssh/sshd_config`, if `/etc/ssh/sshd_config.factory-defaults` does not already exist.
     * Overwrites `~/.ssh/authorized_keys` to contain only the provided public key.

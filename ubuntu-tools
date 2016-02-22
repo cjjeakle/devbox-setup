@@ -10,7 +10,8 @@ set -o pipefail
 function enforce_root {
     if [ "$(whoami)" != "root" ];
     then
-        echo "Please re-run this script as root (eg: 'sudo bash <script>')";
+        echo "Please re-run this script as root (eg: 'sudo bash <script>').";
+        echo "#####"
         exit;
     fi
 }
@@ -21,31 +22,35 @@ function enforce_root {
 enforce_root;
 
 echo "This script will install commonly used tools."
+echo "#####"
 
 # The config script
 ##########
 
-echo "Installing apt packages"
-apt-get update
-# Common dev tools
-apt-get -y install curl nano vim git clang g++ postgresql screen
-# Install LTS nodejs 4.x
+echo "Installing apt packages."
+echo "#####"
+# Install LTS nodejs 4.x, automatically calls apt-get update
 curl -sL https://deb.nodesource.com/setup_4.x | bash -
 apt-get -y install nodejs
+# Common dev tools
+apt-get -y install grep sed gnupg curl nano vim git clang g++ postgresql screen
 
-echo "Installing RVM, Ruby, and Bundler"
+echo "Installing RVM, Ruby, and Bundler."
+echo "#####"
 # Install RVM
-su - $SUDO_USER -c "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-\curl -sSL https://get.rvm.io | bash -s stable --ruby"
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+\curl -sSL https://get.rvm.io | bash -s stable --ruby
 # GitHub pages dependencies
 source /etc/profile.d/rvm.sh
 rvm rubygems latest
 gem install bundler
 
-echo "Making a projects directory"
+echo "Making a projects directory."
+echo "#####"
 su - $SUDO_USER -c "mkdir -p ~/projects"
 
-echo "Adding convenience shortcuts"
+echo "Adding convenience shortcuts."
+echo "#####"
 if ! grep -q "alias proj" ~/.bashrc;
 then
     echo "# Added by ubuntu-tools script" >> ~/.bashrc
@@ -57,8 +62,6 @@ then
     echo "alias serv=\"python -m SimpleHTTPServer 4000\"" >> ~/.bashrc
 fi
 
-echo "
-
-**********
-Thats all!"
+echo "Done!"
 echo "Run 'source ~/.bashrc' to start using the newly added shortcuts!"
+echo "#####"
