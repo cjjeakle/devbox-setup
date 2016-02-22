@@ -4,7 +4,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 ## Set up an Ubuntu box:
 
 ### Install frequently used tools
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools)"`
+`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools --no-cache)"`
 * Software installed:
     * `gpg`
     * `curl`
@@ -24,14 +24,14 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
         * `serv` starts a simple python HTTP server in the current directory under port 4000.
 
 ### Git and GitHub setup
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)"`
+`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)"`
 
 An example run:
 
 `touch password.txt && vim password.txt`
 ```
 cat password.txt | \
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github)" \
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)" \
 -- -e "email@example.com" -n "Your Name" &&\
 rm password.txt
 ```
@@ -49,12 +49,12 @@ rm password.txt
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
 
 ### SSH setup
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)"`
+`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)"`
 
 An example run:
 
 ```
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh)" \
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)" \
 -- -u "login_user" -k "Your SSH Public Key Here"
 ```
 * Script arguments:
