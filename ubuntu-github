@@ -92,3 +92,5 @@ echo "Done!"
 echo "Add the following SSH public key to github:"
 echo "#####"
 cat ~/.ssh/id_rsa.pub
+echo "#####"
+echo "-----"

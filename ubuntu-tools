@@ -63,5 +63,6 @@ fi
 
 echo "Done!"
 echo "To use RVM, run 'source /usr/local/rvm/scripts/rvm'."
-echo "To use the newly added shortcuts, run 'source ~/.bashrc'"
+echo "To use the newly added shortcuts, run 'source ~/.bashrc'."
 echo "#####"
+echo "-----"

@@ -22,6 +22,9 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     * Adds commands to `~/.bashrc`:
         * `proj` changes the current directory to `~/projects`.
         * `serv` starts a simple python HTTP server in the current directory under port 4000.
+* Useful notes:
+    * Run `source /usr/local/rvm/scripts/rvm` after the script completes to use rvm without starting a new shell session.
+    * Run `source ~/.bashrc` after the script completes to use the added convenience shortcuts without starting a new shell session.
 
 ### Git and GitHub setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)"`
@@ -47,6 +50,8 @@ rm password.txt
     * Sets global user.name and user.email for commits.
     * Generates an SSH key and attempts to save it to `~/.ssh/id_rsa`.
         * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
+* Useful notes:
+    * You can retrieve your generated ssh public key by running `cat ~/.ssh/id_rsa.pub` (it is also printed when the script completes).
 
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)"`
