@@ -36,11 +36,9 @@ apt-get -y install nodejs
 echo "Installing RVM, Ruby, and Bundler"
 # Install RVM
 su - $SUDO_USER -c "gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-\curl -sSL https://get.rvm.io | bash -s stable"
+\curl -sSL https://get.rvm.io | bash -s stable --ruby"
 # GitHub pages dependencies
 source /etc/profile.d/rvm.sh
-rvm install 2.1.0
-rvm use 2.1.0
 rvm rubygems latest
 gem install bundler
 
