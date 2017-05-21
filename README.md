@@ -32,11 +32,11 @@ source ~/.bashrc
     * `sed`
 * Configurations:
     * Creates a directory for projects: `~/Projects`.
-    * Adds commands to `~/.bashrc`:
+    * Adds new aliases to `~/.bashrc`:
         * `proj` changes the current directory to `~/Projects`.
-        * `serv` starts a simple python3 HTTP server in the current directory under port 4000.
-        * `upgrade` upgrades installed packages, ie: sudo apt -y update && sudo apt -y upgrade && sudo apt -y autoremove
-    * Aliases `python3` and `pip3` to replace `python` and `pip`
+        * `serv` starts a simple `python3` HTTP server in the current directory on port 4000.
+        * `upgrade` performs an `apt` `update`, `upgrade`, and `autoremove`.
+        * `python` and `pip` are pointed to `python3` and `pip3`.
 * Useful notes:
     * Run `source /usr/local/rvm/scripts/rvm` after the script completes to use rvm without starting a new shell session.
     * Run `source ~/.bashrc` after the script completes to use the added convenience shortcuts without starting a new shell session.
