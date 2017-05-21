@@ -16,6 +16,25 @@ function enforce_root {
     fi
 }
 
+# Takes two arguments, $ALIAS_NAME and $COMMAND_TEXT
+function add_alias_if_missing {
+    ALIAS_NAME=$1;
+    COMMAND_TEXT=$2;
+
+    if [ "$ALIAS_NAME" -eq 0 ] || [ "$COMMAND_TEXT" -eq 0 ];
+    then
+        echo "add_alias_if_missing was provided invalid arguments: $1 and $2."
+        echo "#####"
+        exit;
+    fi
+
+    if ! grep -q "alias $ALIAS_NAME" ~/.bashrc;
+    then
+        echo "# This alias ('$ALIAS_NAME') was added by cjjeakle's ubuntu-tools setup script" >> ~/.bashrc
+        echo "alias $ALIAS_NAME=\"$COMMAND_TEXT\"" >> ~/.bashrc
+    fi
+}
+
 # Checks, user input, and input validation
 ##########
 
@@ -29,11 +48,11 @@ echo "#####"
 
 echo "Installing apt packages."
 echo "#####"
-# Install LTS nodejs 4.x, automatically calls apt-get update
-curl -sL https://deb.nodesource.com/setup_4.x | bash -
-apt-get -y install nodejs
+# Install LTS nodejs 6.x, automatically calls apt update
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt -y install nodejs
 # Common dev tools
-apt-get -y install grep sed gnupg curl nano vim git clang g++ postgresql screen
+apt -y install clang curl g++ git gnupg grep nano vim postgresql screen sed
 
 echo "Installing RVM, Ruby, and Bundler."
 echo "#####"
@@ -50,17 +69,14 @@ su - $SUDO_USER -c "mkdir -p ~/projects"
 
 echo "Adding convenience shortcuts."
 echo "#####"
-if ! grep -q "alias proj" ~/.bashrc;
-then
-    echo "# Added by ubuntu-tools script" >> ~/.bashrc
-    echo "alias proj=\"cd ~/projects/\"" >> ~/.bashrc
-fi
-if ! grep -q "alias serv" ~/.bashrc;
-then
-    echo "# Added by ubuntu-tools script" >> ~/.bashrc
-    echo "alias serv=\"python -m SimpleHTTPServer 4000\"" >> ~/.bashrc
-fi
+add_alias_if_missing "upgrade" "sudo apt -y update && sudo apt -y upgrade && sudo apt -y autoremove"
+add_alias_if_missing "proj" "cd ~/Projects/"
+add_alias_if_missing "serv" "python3 -m http.server 4000"
+add_alias_if_missing "python" "python3"
+add_alias_if_missing "pip" "pip3"
 
+echo "-----"
+echo "#####"
 echo "Done!"
 echo "To use RVM, run 'source /usr/local/rvm/scripts/rvm'."
 echo "To use the newly added shortcuts, run 'source ~/.bashrc'."
