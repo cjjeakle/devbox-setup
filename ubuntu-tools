@@ -52,7 +52,7 @@ echo "#####"
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
 apt -y install nodejs
 # Common dev tools
-apt -y install clang curl g++ git gnupg grep nano vim postgresql screen sed
+apt -y install clang curl g++ git gnupg grep nano vim postgresql python3-pip screen sed
 
 echo "Installing RVM, Ruby, and Bundler."
 echo "#####"
@@ -65,7 +65,7 @@ gem install bundler
 
 echo "Making a projects directory."
 echo "#####"
-su - $SUDO_USER -c "mkdir -p ~/projects"
+su - $SUDO_USER -c "mkdir -p ~/Projects"
 
 echo "Adding convenience shortcuts."
 echo "#####"

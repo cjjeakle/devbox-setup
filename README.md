@@ -24,6 +24,7 @@ source ~/.bashrc
     * `nano`
     * `nodejs`
     * `vim`
+    * `pip3`
     * `postgresql`
     * `rvm`
     * `ruby`
