@@ -54,7 +54,7 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.
 # Update apt
 apt update
 # Common dev tools
-apt -y install clang curl g++ git gnupg grep nano nodejs vim postgresql python3-pip screen sed sublime-text
+apt -y install clang curl g++ git gnupg grep nano nodejs npm vim postgresql python3-pip screen sed sublime-text
 
 echo "Installing RVM, Ruby, and Bundler."
 echo "#####"

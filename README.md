@@ -23,6 +23,7 @@ source ~/.bashrc
     * `grep`
     * `nano`
     * `nodejs`
+    * `npm`
     * `vim`
     * `pip3`
     * `postgresql`
