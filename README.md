@@ -10,7 +10,7 @@ An example run:
 
 ```
 sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools --no-cache)" && \
-source /usr/local/rvm/scripts/rvm && \
+source /home/$USER/.rvm/scripts/rvm && \
 source ~/.bashrc
 ```
 
@@ -40,7 +40,7 @@ source ~/.bashrc
         * `upgrade` performs an `apt` `update`, `upgrade`, and `autoremove`.
         * `python` and `pip` are pointed to `python3` and `pip3`.
 * Useful notes:
-    * Run `source /home/<your_user_name>/.rvm/scripts/rvm` after the script completes to use rvm without starting a new shell session.
+    * Run `source /home/$USER/.rvm/scripts/rvm` after the script completes to use rvm without starting a new shell session.
     * Run `source ~/.bashrc` after the script completes to use the added convenience shortcuts without starting a new shell session.
 
 ### Git and GitHub setup
