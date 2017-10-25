@@ -1,7 +1,19 @@
 # devbox-setup
 A collection of notes and scripts to make configuring new dev boxes faster and more automated.
 
-## Set up an Ubuntu box:
+## Ubuntu on Windows Subsystem for Linux:
+
+### Set up X graphics
+* Download and install [Xming](https://sourceforge.net/projects/xming/files/latest/download).
+* Install libgtk and configure Xming as your X server. 
+    ```
+    sudo apt install libgtk2.0-0
+    echo 'export DISPLAY=:0' >> ~/.bashrc
+    ```
+* When wrangling missing graphical dependencies, try `sudo apt install firefox`.
+    * Firefox does a great job installing in its depenencies, and it's rare for other programs to need much more than firefox does.
+
+## Ubuntu:
 
 ### Install frequently used tools
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-tools --no-cache)"`
@@ -32,7 +44,7 @@ source ~/.bashrc
         * `bundler` (a ruby gem)
     * `screen`
     * `sed`
-    * `sublime-text`
+    * `sublime-text` (run using `subl`)
 * Configurations:
     * Creates a directory for projects: `~/Projects`.
     * Adds new aliases to `~/.bashrc`:
