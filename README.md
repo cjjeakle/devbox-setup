@@ -11,7 +11,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
     echo 'export DISPLAY=:0' >> ~/.bashrc
     ```
 * When wrangling missing graphical dependencies, try `sudo apt install firefox`.
-    * Firefox does a great job installing in its depenencies, and it's rare for other programs to need much more than firefox does.
+    * Firefox does a great job identifying and installing its depenencies, and it's a fairly elaborate graphical application.
 
 ## Ubuntu:
 
