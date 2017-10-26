@@ -16,27 +16,6 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 ## Ubuntu:
 
 ### Install frequently used tools
-#### It is assumed that these commands are run in a Bash shell
-
-* The script below installs:
-    * `clang`
-    * `curl`
-    * `g++`
-    * `git`
-    * `gpg`
-    * `grep`
-    * `nano`
-    * `nodejs`
-    * `npm`
-    * `vim`
-    * `pip3`
-    * `postgresql`
-    * `rvm`
-    * `ruby` (single-user install)
-        * `bundler` (a ruby gem)
-    * `screen`
-    * `sed`
-    * `sublime-text` (run using `subl`)
 ```
 #####
 # Install common dev tools from apt.
@@ -51,7 +30,7 @@ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 # Update apt
 sudo apt update
 # Install common dev tools
-sudo apt -y install clang curl g++ git gnupg grep nano nodejs vim postgresql python3-pip screen sed sublime-text
+sudo apt -y install clang curl dirmngr g++ git gnupg grep nano nodejs vim postgresql python3-pip screen sed sublime-text
 
 #####
 #Install RVM, Ruby, and Bundler for the current user.
@@ -66,13 +45,8 @@ source /home/$USER/.rvm/scripts/rvm
 gem install bundler
 ```
 
-* The script below adds these configurations:
-    * Creates a directory for projects: `~/Projects`.
-    * Adds new aliases to `~/.bashrc`:
-        * `proj` changes the current directory to `~/Projects`.
-        * `serv` starts a simple `python3` HTTP server in the current directory on port 4000.
-        * `upgrade` performs an `apt` `update`, `upgrade`, and `autoremove`.
-        * `python` and `pip` are pointed to `python3` and `pip3`.
+### Set some useful configurations
+
 ```
 ####
 #Create a Projects directory.
