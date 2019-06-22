@@ -25,12 +25,10 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 sudo apt -y install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-# Add nodejs (v6 LTS) to apt
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
 # Update apt
 sudo apt update
 # Install common dev tools
-sudo apt -y install clang curl dirmngr g++ git gnupg grep nano nodejs vim postgresql python3-pip screen sed sublime-text
+sudo apt -y install clang curl dirmngr g++ git gnupg grep nano nodejs npm vim postgresql python3-pip screen sed sublime-text
 
 #####
 #Install RVM, Ruby, and Bundler for the current user.
