@@ -87,6 +87,28 @@ add_alias_if_missing "pip" "pip3"
 source ~/.bashrc
 ```
 
+### Use screen to make shell sessions persistent
+* Configure screen to use bash
+    * Edit `~/.screenrc`:
+    ```
+    # ~/.screenrc
+    defshell -bash
+    caption always "%{= kc}Screen session %S on %H (system load: %l)%-28=%{= .m}%D %d.%m.%Y %0c"
+    ```
+* Add this to `~/.bashrc` to start a screen if there isn't one and attach to that screen when your session starts:
+    ```
+    DEFAULT_SCREEN_NAME=main
+    if ! screen -list | grep -q ${DEFAULT_SCREEN_NAME}; then
+        # If the default screen doesn't exist, create it
+        screen -dmS ${DEFAULT_SCREEN_NAME}
+    fi
+    if [ -z $STY ]
+    then
+        # We're not in a screen, attach to the default screen
+        screen -r ${DEFAULT_SCREEN_NAME}
+    fi
+    ```
+
 
 ### Git and GitHub setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)"`
