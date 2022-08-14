@@ -44,7 +44,6 @@ gem install bundler
 ```
 
 ### Set some useful configurations
-
 ```
 ####
 #Create a Projects directory.
@@ -109,35 +108,21 @@ source ~/.bashrc
     fi
     ```
 
-
 ### Git and GitHub setup
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)"`
-
-An example run:
-
 ```
-touch password.txt && vim password.txt
+# Make an SSH key to authenticate using
+ssh-keygen -t ed25519 -C "your_email@example.com"
 
-cat password.txt | \
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-github --no-cache)" \
--- -e "email@example.com" -n "Your Name" && \
-rm password.txt
+# Add this key to GitHub settings
+cat .ssh/id_ed25519.pub
+
+# Configure Git
+git config --global user.name "FIRST_NAME LAST_NAME"
+git config --global user.email "your_email@example.com"
+
+# Verify configuration
+git config --list
 ```
-
-* Script arguments:
-    * All arguments (except `-z`) are mandatory.
-    * `stdin` The password you would like to protect the generated GitHub SSH key with. This password is provided via standard input.
-    * `e <str>` (_E_mail) The email address you would like to use on your git commits, and would like to annotate your GitHub SSH key with.
-    * `n <str>` (_N_ame) The full name you would like to use on your git commits.
-    * `z` (_Z_oom) Deletes ~/.ssh/id_rsa and ~/.ssh/id_rsa.pub, if they exist, so ssh-keygen will not interrupt for write confirmation.
-* Software installed:
-    * `git`
-* Configurations:
-    * Sets global user.name and user.email for commits.
-    * Generates an SSH key and attempts to save it to `~/.ssh/id_rsa`.
-        * If `~/.ssh/id_rsa` already exists, `ssh-keygen` will interrupt the script and request write confirmation.
-* Useful notes:
-    * You can retrieve your generated ssh public key by running `cat ~/.ssh/id_rsa.pub` (it is also printed when the script completes).
 
 ### SSH setup
 `sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)"`
@@ -164,4 +149,4 @@ sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setu
     * Enables rate limiting on login attempts.
 * Useful notes:
     * An SSH public key will be requested.
-        * [This page](https://www.digitalocean.com/community/tutorials/how-to-create-ssh-keys-with-putty-to-connect-to-a-vps) has some helpful reading on generating an OpenSSH key via PuTTygen (useful when using Windows).
+        * [This page](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) has some helpful reading on generating an OpenSSH key.
