@@ -104,7 +104,7 @@ source ~/.bashrc
     if [ -z $STY ]
     then
         # We're not in a screen, attach to the default screen
-        screen -r ${DEFAULT_SCREEN_NAME}
+        screen -dr ${DEFAULT_SCREEN_NAME}
     fi
     ```
 
@@ -133,7 +133,7 @@ declare SSH_PUBLIC_KEY="";
 # Install openssh and back up the default config,
 # based on the suggestions here: "https://help.ubuntu.com/community/SSH/OpenSSH/Configuring"
 sudo apt -y install openssh-server ufw
-cp --no-clobber /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
+sudo cp --no-clobber /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
 sudo chmod a-w /etc/ssh/sshd_config.factory-defaults
 
 # Set the provided ssh public key as a login credential (Overwriting existing settings)
