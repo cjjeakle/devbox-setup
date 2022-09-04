@@ -125,28 +125,40 @@ git config --list
 ```
 
 ### SSH setup
-`sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)"`
-
-An example run:
-
 ```
-sudo bash -c "$(wget -O - https://raw.githubusercontent.com/cjjeakle/devbox-setup/master/ubuntu-ssh --no-cache)" \
--- -u "login_user" -k "Your SSH Public Key Here"
+# Log in as the user you'd like to ssh in as, populate the following vars
+declare SSH_USER="";
+declare SSH_PUBLIC_KEY="";
+
+# Install openssh and back up the default config,
+# based on the suggestions here: "https://help.ubuntu.com/community/SSH/OpenSSH/Configuring"
+sudo apt -y install openssh-server ufw
+cp --no-clobber /etc/ssh/sshd_config /etc/ssh/sshd_config.factory-defaults
+sudo chmod a-w /etc/ssh/sshd_config.factory-defaults
+
+# Set the provided ssh public key as a login credential (Overwriting existing settings)
+mkdir -p ~/.ssh
+chmod 0700 ~/.ssh
+echo $SSH_PUBLIC_KEY > ~/.ssh/authorized_keys
+chmod 0644 ~/.ssh/authorized_keys
+
+# Explicitly disable SSH password login using global regex substitution
+sudo sed -i "s|#*PasswordAuthentication yes|PasswordAuthentication no|g" /etc/ssh/sshd_config
+sudo sed -i "s|#*UsePAM yes|UsePAM no|g" /etc/ssh/sshd_config
+if sudo grep -q "AllowUsers" /etc/ssh/sshd_config;
+then
+    sudo sed -i "s|AllowUsers.*|AllowUsers ${SSH_USER}|g" /etc/ssh/sshd_config
+else
+    echo "AllowUsers ${SSH_USER}" | sudo tee -a /etc/ssh/sshd_config
+fi
+
+# Rate limit connection attempts from a given IP address
+sudo ufw limit ssh
+
+# Restart the SSH service so changes take effect
+sudo service ssh restart
 ```
 
-* Script arguments:
-    * All arguments are mandatory.
-    * `k <str>` (_K_ey) the SSH public key you would like to log in against.
-    * `u <str>` (_U_ser) the user you would like to use with SSH login.
-* Software installed:
-    * `openssh-server`
-    * `ufw`
-* Configurations:
-    * Creates `/etc/ssh/sshd_config.factory-defaults` to back up `/etc/ssh/sshd_config`, if `/etc/ssh/sshd_config.factory-defaults` does not already exist.
-    * Overwrites `~/.ssh/authorized_keys` to contain only the provided public key.
-    * Disables SSH password authentication.
-    * Sets the provided user as the only valid user for SSH login.
-    * Enables rate limiting on login attempts.
 * Useful notes:
-    * An SSH public key will be requested.
+    * An SSH public key is necessary (generated on the host you'd like to sign in from)
         * [This page](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) has some helpful reading on generating an OpenSSH key.
