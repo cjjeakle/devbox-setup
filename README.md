@@ -24,7 +24,7 @@ A collection of notes and scripts to make configuring new dev boxes faster and m
 # Update apt
 sudo apt update
 # Install common dev tools
-sudo apt -y install clang curl dirmngr g++ git gnupg gnupg2 grep nano nodejs npm openssl postgresql python3-pip screen sed vim
+sudo apt -y install avahi-daemon clang curl dirmngr g++ git gnupg gnupg2 grep nano nodejs npm openssl postgresql python3-pip screen sed vim
 
 #####
 #Install RVM, Ruby, and Bundler for the current user.
